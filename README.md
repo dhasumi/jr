@@ -5,7 +5,7 @@ This is a custom Jira CLI wrapper command for personal use.
 ## Prerequisites
 
 - [jira-cli](https://github.com/ankitpokhrel/jira-cli) (Ensure `jira` command is available and properly set up)
-- golang (Ensure `go` command is available)
+- golang (Only if you build it from source code)
 
 ## Installation
 
