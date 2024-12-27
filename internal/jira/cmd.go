@@ -66,7 +66,6 @@ func GetFutureSprintList() []string {
 func CreateTicket(param CreateParams) string {
 	// prepare option strings
 	options := make([]string, 0, 16)
-	options = append(options, "-c")
 	options = append(options, "jira")
 	options = append(options, "issue")
 	options = append(options, "create")
@@ -111,12 +110,14 @@ func CreateTicket(param CreateParams) string {
 		options = append(options, "story-points="+i)
 	}
 
-	slog.Debug("CreateTicket", "options", strings.Join(options, " "))
+	concat := strings.Join(options, " ")
+
+	slog.Debug("CreateTicket", "options", concat)
 
 	// publish Command
 	result_lines := make([]string, 0, 4)
 
-	cmd := exec.Command("sh", options...)
+	cmd := exec.Command("sh", "-c", concat)
 	stdout, err := cmd.StdoutPipe()
 
 	if err != nil {

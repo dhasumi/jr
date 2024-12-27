@@ -33,7 +33,7 @@ to quickly create a Cobra application.`,
 			var debugLevel = new(slog.LevelVar)
 			debugLevel.Set(slog.LevelDebug)
 
-			logger := slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: debugLevel}))
+			logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: debugLevel}))
 			slog.SetDefault(logger)
 
 			slog.Info("Debug Mode ON")
