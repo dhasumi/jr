@@ -28,6 +28,17 @@ to quickly create a Cobra application.`,
 	ArgAliases: []string{
 		"summary",
 	},
+	PreRun: func(cmd *cobra.Command, args []string) {
+		if debug {
+			var debugLevel = new(slog.LevelVar)
+			debugLevel.Set(slog.LevelDebug)
+
+			logger := slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: debugLevel}))
+			slog.SetDefault(logger)
+
+			slog.Info("Debug Mode ON")
+		}
+	},
 	Run: func(cmd *cobra.Command, args []string) {
 		params.Summary = args[0]
 

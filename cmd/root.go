@@ -4,7 +4,6 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"log/slog"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -19,7 +18,8 @@ var rootCmd = &cobra.Command{
 	Long:  `This is a custom Jira CLI wrapper command for personal use.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+	// Run: func(cmd *cobra.Command, args []string) {
+	// },
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -32,16 +32,6 @@ func Execute() {
 }
 
 func init() {
-	if debug {
-		slog.Info("Debug Mode ON")
-
-		var debugLevel = new(slog.LevelVar)
-		debugLevel.Set(slog.LevelDebug)
-
-		logger := slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: debugLevel}))
-		slog.SetDefault(logger)
-	}
-
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
