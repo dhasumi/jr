@@ -5,6 +5,7 @@ package cmd
 
 import (
 	"fmt"
+	"log/slog"
 	"os"
 
 	"github.com/dhasumi/jr/internal/jira"
@@ -29,11 +30,12 @@ to quickly create a Cobra application.`,
 	},
 	Run: func(cmd *cobra.Command, args []string) {
 		params.Summary = args[0]
-		fmt.Println("create called")
-		fmt.Println(params.Summary)
 
 		sprint_id := jira.GetSprintID(params.SprintData)
+		slog.Info("createCmd.Run", "sprint_id", sprint_id)
+
 		ticket_id := jira.CreateTicket(params)
+
 		err := jira.MoveTicketToSprint(ticket_id, sprint_id)
 		if err != nil {
 			fmt.Println(err)

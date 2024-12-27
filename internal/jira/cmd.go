@@ -108,7 +108,7 @@ func CreateTicket(param CreateParams) string {
 		options = append(options, "story-points="+i)
 	}
 
-	slog.Debug("CreateTicket", "options", strings.Join(options, " "))
+	slog.Info("CreateTicket", "options", strings.Join(options, " "))
 
 	// publish Command
 	result_lines := make([]string, 0, 4)
