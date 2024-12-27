@@ -12,7 +12,7 @@ import (
 )
 
 func GetCurrentSprintLine() string {
-	sprint_list := make([]string, 0, 20)
+	sprint_list := make([]string, 0, 4)
 
 	cmd := exec.Command("jira", "sprint", "list", "--state=active", "--table", "--plain")
 	stdout, err := cmd.StdoutPipe()
@@ -65,41 +65,41 @@ func GetFutureSprintList() []string {
 
 func CreateTicket(param CreateParams) string {
 	// prepare option strings
-	options := make([]string, 0, 8)
+	options := make([]string, 0, 16)
 	options = append(options, "create")
 	options = append(options, "--no-input")
 	options = append(options, "-t"+param.Type)
-	options = append(options, "-s\""+param.Summary+"\"")
+	options = append(options, "-s'"+param.Summary+"'")
 
 	// decide assigner
 	if param.Assign != "" {
-		options = append(options, "-a\""+param.Assign+"\"")
+		options = append(options, "-a'"+param.Assign+"'")
 	} else {
 		me := GetMe()
-		options = append(options, "-a\""+me+"\"")
+		options = append(options, "-a'"+me+"'")
 	}
 
 	if param.Body != "" {
-		options = append(options, "-b\""+param.Body+"\"")
+		options = append(options, "-b'"+param.Body+"'")
 	}
 
 	if param.Priority != "" {
-		options = append(options, "-y\""+param.Priority+"\"")
+		options = append(options, "-y"+param.Priority)
 	}
 
 	if len(param.Labels) != 0 {
 		for _, v := range param.Labels {
-			options = append(options, "-l\""+v+"\"")
+			options = append(options, "-l'"+v+"'")
 		}
 	}
 
 	if param.Epic != "" {
-		options = append(options, "-P\""+param.Epic+"\"")
+		options = append(options, "-P'"+param.Epic+"'")
 	}
 
 	if param.TemplatePath != "" {
 		options = append(options, "--template")
-		options = append(options, "\""+param.TemplatePath+"\"")
+		options = append(options, "'"+param.TemplatePath+"'")
 	}
 
 	if param.StoryPoints != 0 {

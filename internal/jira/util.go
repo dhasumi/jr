@@ -9,8 +9,8 @@ import (
 )
 
 func extractSprintIDFromLine(s string) string {
-	id := strings.Split(s, " ")[0] // extract SprintID
-	return id
+	id := strings.Split(s, "\t")[0] // extract SprintID
+	return strings.Trim(id, " \n")
 }
 
 func GetSprintID(data SprintData) string {
