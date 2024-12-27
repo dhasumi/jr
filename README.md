@@ -15,10 +15,10 @@ go install github.com/dhasumi/jr@latest
 
 ## Usage
 
-The basic usage of the `jr` command with `create` subcommand is as follows. In the example below, the string specified is treated as the summary of a Task-type ticket using the `jira` command. The numeric value specified with the `--sp` option is assigned to the Story Points field. If not explicitly specified, the ticket will be assigned to the user themselves and placed in the current sprint.
+The basic usage of the `jr` command with `create` subcommand is as follows. In the example below, the string specified is treated as the summary of a Task-type ticket using the `jira` command. The numeric value specified with the `--sp` option is reflected to the Story Points field. If not explicitly specified, the ticket will be assigned to the user themselves and placed in the current sprint.
 
 ```
-jr create "summary string" -sp 4
+jr create "summary string" --sp 4
 ```
 
 ### Optional parameters
