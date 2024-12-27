@@ -1,7 +1,6 @@
 package jira
 
 import (
-	"fmt"
 	"log/slog"
 	"os"
 	"strconv"
@@ -14,22 +13,27 @@ func extractSprintIDFromLine(s string) string {
 }
 
 func GetSprintID(data SprintData) string {
+	if data.BackLog {
+		return "backlog"
+	}
+
 	if data.SprintNum != 0 {
 		// convert SprintNum to string
-		target_string := strconv.FormatUint(uint64(data.SprintNum), 32)
+		target_string := "Sprint"
+		target_string += strconv.FormatUint(uint64(data.SprintNum), 32)
 
 		//get future splint list using jira Command
 		sprint_list := GetFutureSprintList()
 
 		for _, l := range sprint_list {
-			fmt.Println(l)
+			slog.Debug("GetSprintID", "scan content", l)
 			if strings.Contains(l, target_string) { // if is SprintNumber contained to the line
 				return extractSprintIDFromLine(l)
 			}
 		}
 
 		// if reaching this code, it means given SprintNum is not found
-		fmt.Printf("no SprintNum found: %d\n", data.SprintNum)
+		slog.Error("GetSprintID: no SprintNum found", "target_string", target_string)
 		os.Exit(1)
 	}
 
@@ -63,7 +67,7 @@ func GetSprintID(data SprintData) string {
 	return extractSprintIDFromLine(target_line)
 }
 
-func GetTicketID(result []string) string {
+func GetTicketID(result []string) (string, string) {
 	// detect target line
 	final_line := result[len(result)-1]
 	divided := strings.Split(final_line, "/")
@@ -72,5 +76,7 @@ func GetTicketID(result []string) string {
 	id := divided[len(divided)-1]
 	id = strings.Trim(id, " \n\t") // delete space chars
 
-	return id
+	url := strings.Trim(final_line, " \n\t") // delete space chars
+
+	return id, url
 }

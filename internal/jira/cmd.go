@@ -7,6 +7,7 @@ import (
 	"log/slog"
 	"os"
 	"os/exec"
+	"runtime"
 	"strconv"
 	"strings"
 )
@@ -63,7 +64,7 @@ func GetFutureSprintList() []string {
 	return sprint_list[1:] // cut header line
 }
 
-func CreateTicket(param CreateParams) string {
+func CreateTicket(param CreateParams) (string, string) {
 	// prepare option strings
 	options := make([]string, 0, 16)
 	options = append(options, "jira")
@@ -117,7 +118,12 @@ func CreateTicket(param CreateParams) string {
 	// publish Command
 	result_lines := make([]string, 0, 4)
 
-	cmd := exec.Command("sh", "-c", concat)
+	var cmd *exec.Cmd
+	if runtime.GOOS == "windows" {
+		cmd = exec.Command("cmd", "/c", concat)
+	} else {
+		cmd = exec.Command("sh", "-c", concat)
+	}
 	stdout, err := cmd.StdoutPipe()
 
 	if err != nil {

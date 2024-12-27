@@ -5,6 +5,7 @@ type SprintData struct {
 	CurrentSprint bool
 	NextSprint    bool
 	FutureSprint  int32
+	BackLog       bool
 }
 
 type CreateParams struct {

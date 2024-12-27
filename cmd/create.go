@@ -4,7 +4,6 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"fmt"
 	"log/slog"
 	"os"
 
@@ -43,15 +42,19 @@ to quickly create a Cobra application.`,
 		params.Summary = args[0]
 
 		sprint_id := jira.GetSprintID(params.SprintData)
-		slog.Info("createCmd.Run", "sprint_id", sprint_id)
+		slog.Debug("createCmd.Run", "sprint_id", sprint_id)
 
-		ticket_id := jira.CreateTicket(params)
+		ticket_id, ticket_url := jira.CreateTicket(params)
+		slog.Debug("createCmd.Run", "ticket_id", sprint_id)
 
-		err := jira.MoveTicketToSprint(ticket_id, sprint_id)
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
+		if sprint_id != "backlog" {
+			err := jira.MoveTicketToSprint(ticket_id, sprint_id)
+			if err != nil {
+				slog.Error("createCmd.Run", "error", err)
+				os.Exit(1)
+			}
 		}
+		slog.Info("A ticket was successfully created", "ticket_id", ticket_id, "sprint_id", sprint_id, "ticket_url", ticket_url)
 	},
 }
 
@@ -64,15 +67,16 @@ func init() {
 	// and all subcommands, e.g.:
 	// createCmd.PersistentFlags().String("foo", "", "A help for foo")
 
-	createCmd.Flags().StringVarP(&params.Type, "type", "t", "Task", "Specifies Ticket Type e.g. Task,Bug,Story")
+	createCmd.Flags().StringVarP(&params.Type, "type", "t", "Task", "Specifies Ticket Type e.g. Task, Bug, Story, Subtask")
 	createCmd.Flags().StringVarP(&params.Body, "body", "b", "", "Specifies description text")
-	createCmd.Flags().StringVarP(&params.Priority, "priority", "p", "Medium", "Specifies ticket priority e.g. Medium, High, Low")
+	createCmd.Flags().StringVarP(&params.Priority, "priority", "p", "Medium", "Specifies ticket priority e.g. Medium, High, Low, Highest, Lowerst")
 	createCmd.Flags().StringSliceVarP(&params.Labels, "label", "l", []string{}, "Specifies ticket label. it can be put multiple labels with comma, like 'label1,label2'")
 	createCmd.Flags().StringVarP(&params.Epic, "epic", "e", "", "Specifies EpicID")
 	createCmd.Flags().StringVarP(&params.Assign, "assign", "a", "", "Specifies ticket assigner")
 	createCmd.Flags().Uint8Var(&params.StoryPoints, "sp", 0, "Specifies StoryPoints value")
 	createCmd.Flags().Int32VarP(&params.SprintData.SprintNum, "sprint", "s", 0, "Put the number of sprint")
 	createCmd.Flags().BoolVar(&params.SprintData.NextSprint, "next-sprint", false, "Specifies if ticket should be located on the next sprint")
+	createCmd.Flags().BoolVar(&params.SprintData.BackLog, "backlog", false, "Specifies if ticket should be located to backlog (no Sprint)")
 	createCmd.Flags().Int32Var(&params.SprintData.FutureSprint, "future-sprint", 0, "Specifies the number of sprint ahead the ticket will be located from current")
 	createCmd.Flags().StringVar(&params.TemplatePath, "template", "", "Specifies template file path to fill the description field")
 }
