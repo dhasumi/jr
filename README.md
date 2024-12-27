@@ -25,14 +25,26 @@ jr create "summary string" --sp 4
 
 Other optional parameters are available as follows:
 
+`-t STRING`, `--type STRING`:
+Allows the creation of ticket types other than `Task`. Specify the desired type using this option.
+
+`-b STRING`, `--body STRING`:
+Specifies a string to be entered into the ticket's Description field.
+
 `-e STRING`, `--epic STRING`:
 Specifies an Epic ID. Tickets created with this option will be associated with the given Epic. The Epic ID needs to be identified using the `jira` command. (Example: `ABC-123`)
 
-`-s NUM`, `--sprint NUM`:
-Specifies a sprint number. Tickets will be created in the sprint corresponding to the provided number. The sprint number must correspond to an active or upcoming sprint, and the sprint must already exist.
-
 `-a STRING`, `--assign STRING`:
-Assigns the created ticket to a user other than yourself. The specified string must be a valid email address or username recognizable by `jira` command.
+Assigns the created ticket to a user other than yourself. The specified string must be a valid email address or username recognizable by `jira` command. The default assigner is the user themselvs.
+
+`-p STRING`, `--priority STRING`:
+Sets the priority of the ticket. e.g. {Highest, High, Medium (default), Low, Lowest}
+
+`-l STRING`, `--label STRING`:
+Adds the specified string as a label to the ticket. If you want to add multiple labels, separate them with commas (,) in a single option.
+
+`-s NUM`, `--sprint NUM`:
+Specifies a sprint number. Tickets will be created in the sprint corresponding to the provided number (SPRINT NAME). The sprint number must correspond to upcoming sprint, and the sprint must already exist.
 
 `--next-sprint:`
 Places the ticket in the next sprint following the current one. If used in conjunction with `-e` option, `-e` option takes precedence.
@@ -40,17 +52,8 @@ Places the ticket in the next sprint following the current one. If used in conju
 `--future-sprint NUM`:
 Places the ticket in the sprint occurring a specified number of sprints after the current one. For example, `--future-sprint 1` is equivalent to `--next-sprint option`.
 
-`-t STRING`, `--type STRING`:
-Allows the creation of ticket types other than `Task`. Specify the desired type using this option.
-
-`-b STRING`, `--body STRING`:
-Specifies a string to be entered into the ticket's Description field.
+`--backlog`:
+Specifies created ticket will be located on backlog.
 
 `--template FILE_PATH`:
 Specifies a template file, similar to the functionality of the `jira` command. If used together with `-b` option, this option takes precedence.
-
-`--priority STRING`:
-Sets the priority of the ticket.
-
-`-l STRING`, `--label STRING`:
-Adds the specified string as a label to the ticket. If you want to add multiple labels, separate them with commas (,) in a single specification.
