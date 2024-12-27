@@ -20,7 +20,7 @@ func GetSprintID(data SprintData) string {
 	if data.SprintNum != 0 {
 		// convert SprintNum to string
 		target_string := "Sprint"
-		target_string += strconv.FormatUint(uint64(data.SprintNum), 32)
+		target_string += strconv.FormatUint(uint64(data.SprintNum), 10)
 
 		//get future splint list using jira Command
 		sprint_list := GetFutureSprintList()
