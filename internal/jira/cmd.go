@@ -66,6 +66,8 @@ func GetFutureSprintList() []string {
 func CreateTicket(param CreateParams) string {
 	// prepare option strings
 	options := make([]string, 0, 16)
+	options = append(options, "-c")
+	options = append(options, "jira")
 	options = append(options, "issue")
 	options = append(options, "create")
 	options = append(options, "--no-input")
@@ -109,12 +111,12 @@ func CreateTicket(param CreateParams) string {
 		options = append(options, "story-points="+i)
 	}
 
-	slog.Info("CreateTicket", "options", strings.Join(options, " "))
+	slog.Debug("CreateTicket", "options", strings.Join(options, " "))
 
 	// publish Command
 	result_lines := make([]string, 0, 4)
 
-	cmd := exec.Command("jira", options...)
+	cmd := exec.Command("sh", options...)
 	stdout, err := cmd.StdoutPipe()
 
 	if err != nil {
@@ -133,6 +135,10 @@ func CreateTicket(param CreateParams) string {
 	}
 
 	cmd.Wait()
+
+	if len(result_lines) == 0 {
+		slog.Error("CreateTicket", "error", "no strings received from jira issue create")
+	}
 
 	// return ticket id
 	return GetTicketID(result_lines)
