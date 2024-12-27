@@ -66,6 +66,7 @@ func GetFutureSprintList() []string {
 func CreateTicket(param CreateParams) string {
 	// prepare option strings
 	options := make([]string, 0, 16)
+	options = append(options, "issue")
 	options = append(options, "create")
 	options = append(options, "--no-input")
 	options = append(options, "-t"+param.Type)
