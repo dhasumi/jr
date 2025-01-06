@@ -14,10 +14,13 @@ type CreateParams struct {
 	Type         string
 	Priority     string
 	Labels       []string
+	Components   []string
 	Epic         string
 	StoryPoints  uint8
+	Project      string
 	SprintID     uint16
 	SprintData   SprintData
-	Assign       string
+	Assignee     string
+	Reporter     string
 	TemplatePath string
 }

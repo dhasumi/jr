@@ -9,6 +9,8 @@ This is a custom Jira CLI wrapper command for personal use.
 
 ## Installation
 
+Please download a compiled binary from [Release Page](https://github.com/dhasumi/jr/releases), or build from source code with the below command.
+
 ```
 go install github.com/dhasumi/jr@latest
 ```
@@ -35,13 +37,19 @@ Specifies a string to be entered into the ticket's Description field.
 Specifies an Epic ID. Tickets created with this option will be associated with the given Epic. The Epic ID needs to be identified using the `jira` command. (Example: `ABC-123`)
 
 `-a STRING`, `--assign STRING`:
-Assigns the created ticket to a user other than yourself. The specified string must be a valid email address or username recognizable by `jira` command. The default assigner is the user themselvs.
+Assigns the created ticket to a user other than yourself. The specified string must be a valid email address or username recognizable by `jira` command. The default assigner is the user themselves.
 
-`-p STRING`, `--priority STRING`:
+`-y STRING`, `--priority STRING`:
 Sets the priority of the ticket. e.g. {Highest, High, Medium (default), Low, Lowest}
+
+`-p STRING`, `--project STRING`:
+Sets the project name you want to create ticket on.
 
 `-l STRING`, `--label STRING`:
 Adds the specified string as a label to the ticket. If you want to add multiple labels, separate them with commas (,) in a single option.
+
+`-c STRING`, `--component STRING`:
+Adds the specified string as a component to the ticket. If you want to add multiple component, separate them with commas (,) in a single option.
 
 `-s NUM`, `--sprint NUM`:
 Specifies a sprint number. Tickets will be created in the sprint corresponding to the provided number (SPRINT NAME). The sprint number must correspond to upcoming sprint, and the sprint must already exist.
