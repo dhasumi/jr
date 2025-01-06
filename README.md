@@ -39,6 +39,9 @@ Specifies an Epic ID. Tickets created with this option will be associated with t
 `-a STRING`, `--assign STRING`:
 Assigns the created ticket to a user other than yourself. The specified string must be a valid email address or username recognizable by `jira` command. The default assigner is the user themselves.
 
+`-r STRING`, `--report STRING`:
+Assigns the created ticket to a user other than yourself as a ticke reporter. The specified string must be a valid email address or username recognizable by `jira` command. The default reporter is the user themselves.
+
 `-y STRING`, `--priority STRING`:
 Sets the priority of the ticket. e.g. {Highest, High, Medium (default), Low, Lowest}
 
