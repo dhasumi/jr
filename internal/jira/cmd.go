@@ -71,47 +71,47 @@ func CreateTicket(param CreateParams) (string, string) {
 	options = append(options, "issue")
 	options = append(options, "create")
 	options = append(options, "--no-input")
-	options = append(options, "-t"+param.Type)
-	options = append(options, "-s'"+param.Summary+"'")
+	options = append(options, "-t="+param.Type)
+	options = append(options, "-s='"+param.Summary+"'")
 
 	// decide assigner
 	if param.Assignee != "" {
-		options = append(options, "-a'"+param.Assignee+"'")
+		options = append(options, "-a='"+param.Assignee+"'")
 	} else {
 		me := GetMe()
-		options = append(options, "-a'"+me+"'")
+		options = append(options, "-a='"+me+"'")
 	}
 
 	if param.Reporter != "" {
-		options = append(options, "-r'"+param.Reporter+"'")
+		options = append(options, "-r='"+param.Reporter+"'")
 	}
 
 	if param.Body != "" {
-		options = append(options, "-b'"+param.Body+"'")
+		options = append(options, "-b='"+param.Body+"'")
 	}
 
 	if param.Priority != "" {
-		options = append(options, "-y"+param.Priority)
+		options = append(options, "-y="+param.Priority)
 	}
 
 	if param.Project != "" {
-		options = append(options, "-p'"+param.Project+"'")
+		options = append(options, "-p='"+param.Project+"'")
 	}
 
 	if len(param.Labels) != 0 {
 		for _, v := range param.Labels {
-			options = append(options, "-l'"+v+"'")
+			options = append(options, "-l='"+v+"'")
 		}
 	}
 
 	if len(param.Components) != 0 {
 		for _, v := range param.Components {
-			options = append(options, "-c'"+v+"'")
+			options = append(options, "-c='"+v+"'")
 		}
 	}
 
 	if param.Epic != "" {
-		options = append(options, "-P'"+param.Epic+"'")
+		options = append(options, "-P='"+param.Epic+"'")
 	}
 
 	if param.TemplatePath != "" {
