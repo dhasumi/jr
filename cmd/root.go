@@ -16,7 +16,7 @@ var rootCmd = &cobra.Command{
 	Use:     "jr",
 	Short:   "This is a custom Jira CLI wrapper command for personal use",
 	Long:    `This is a custom Jira CLI wrapper command for personal use.`,
-	Version: "v1.0.2",
+	Version: "v1.0.3",
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) {
