@@ -58,7 +58,7 @@ Adds the specified string as a component to the ticket. If you want to add multi
 Specifies a sprint number. Tickets will be created in the sprint corresponding to the provided number (SPRINT NAME). The sprint number must correspond to upcoming sprint, and the sprint must already exist.
 
 `--next-sprint:`
-Places the ticket in the next sprint following the current one. If used in conjunction with `-e` option, `-e` option takes precedence.
+Places the ticket in the next sprint following the current one. If used in conjunction with `-s` option, `-s` option takes precedence.
 
 `--future-sprint NUM`:
 Places the ticket in the sprint occurring a specified number of sprints after the current one. For example, `--future-sprint 1` is equivalent to `--next-sprint option`.
