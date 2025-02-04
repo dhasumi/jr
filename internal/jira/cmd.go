@@ -134,7 +134,7 @@ func CreateTicket(param CreateParams) (string, string) {
 
 	var cmd *exec.Cmd
 	if runtime.GOOS == "windows" {
-		cmd = exec.Command("cmd", "/c", concat)
+		cmd = exec.Command("powershell", "/c", concat)
 	} else {
 		cmd = exec.Command("sh", "-c", concat)
 	}
