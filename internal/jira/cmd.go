@@ -125,6 +125,13 @@ func CreateTicket(param CreateParams) (string, string) {
 		options = append(options, "story-points="+i)
 	}
 
+	if len(param.Customs) != 0 {
+		for _, v := range param.Customs {
+			options = append(options, "--custom")
+			options = append(options, v)
+		}
+	}
+
 	concat := strings.Join(options, " ")
 
 	slog.Debug("CreateTicket", "options", concat)

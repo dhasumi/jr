@@ -11,7 +11,7 @@ This is a custom Jira CLI wrapper command for personal use.
 
 Please download a compiled binary from [Release Page](https://github.com/dhasumi/jr/releases), or build from source code with the below command.
 
-```
+```bash
 go install github.com/dhasumi/jr@latest
 ```
 
@@ -19,7 +19,7 @@ go install github.com/dhasumi/jr@latest
 
 The basic usage of the `jr` command with `create` subcommand is as follows. In the example below, the string specified is treated as the summary of a Task-type ticket using the `jira` command. The numeric value specified with the `--sp` option is reflected to the Story Points field. If not explicitly specified, the ticket will be assigned to the user themselves and placed in the current sprint.
 
-```
+```bash
 jr create "summary string" --sp 4
 ```
 
@@ -68,3 +68,6 @@ Specifies created ticket will be located on backlog.
 
 `--template FILE_PATH`:
 Specifies a template file, similar to the functionality of the `jira` command. If used together with `-b` option, this option takes precedence.
+
+`--custom STRING`:
+Specifies string as a custom values to the ticket. If you want to add multiple labels, separate them with commas (,) in a single option. If you set an arguments like "A=a,B=b" with `--custom`, it equals `--custom A=a --custom B=b` arguments on the jira-cli.

@@ -82,4 +82,5 @@ func init() {
 	createCmd.Flags().BoolVar(&params.SprintData.BackLog, "backlog", false, "Specifies if ticket should be located to backlog (no Sprint)")
 	createCmd.Flags().Int32Var(&params.SprintData.FutureSprint, "future-sprint", 0, "Specifies the number of sprint ahead the ticket will be located from current")
 	createCmd.Flags().StringVar(&params.TemplatePath, "template", "", "Specifies template file path to fill the description field")
+	createCmd.Flags().StringSliceVar(&params.Customs, "custom", []string{}, "Specifies custom values. It can be put multiple custom values with comma. ex: \"A=a,B=b\"")
 }

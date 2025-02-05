@@ -23,4 +23,5 @@ type CreateParams struct {
 	Assignee     string
 	Reporter     string
 	TemplatePath string
+	Customs      []string
 }
