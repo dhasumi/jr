@@ -71,3 +71,6 @@ Specifies a template file, similar to the functionality of the `jira` command. I
 
 `--custom STRING`:
 Specifies string as a custom values to the ticket. If you want to add multiple labels, separate them with commas (,) in a single option. If you set an arguments like "A=a,B=b" with `--custom`, it equals `--custom A=a --custom B=b` arguments on the jira-cli.
+
+`--link STRING`:
+Specifies link to other issues, and linking type. It can be put multiple link representations using comma. ex: \"Blocks>ISSUE-1020,Relates>ISSUE-1021\"

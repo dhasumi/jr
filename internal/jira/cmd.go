@@ -172,6 +172,58 @@ func CreateTicket(param CreateParams) (string, string) {
 	return GetTicketID(result_lines)
 }
 
+func LinkingTicket(param CreateParams, myKey string) bool {
+	for _, v := range param.Links {
+		options := []string{"jira", "link", myKey}
+
+		divided := strings.Split(v, ">")
+		if len(divided) != 2 {
+			slog.Error("LinkingTicket", "error", v+" cannot be divided to 2 options by '>'")
+			os.Exit(1)
+		}
+		rel := divided[0]
+		key := divided[1]
+
+		options = append(options, key)
+		options = append(options, rel)
+
+		concat := strings.Join(options, " ")
+
+		var cmd *exec.Cmd
+		if runtime.GOOS == "windows" {
+			cmd = exec.Command("powershell", "/c", concat)
+		} else {
+			cmd = exec.Command("sh", "-c", concat)
+		}
+		stdout, err := cmd.StdoutPipe()
+
+		if err != nil {
+			slog.Error("LinkingTicket", "error", err)
+			os.Exit(1)
+		}
+
+		cmd.Start()
+
+		scanner := bufio.NewScanner(stdout)
+
+		result_lines := make([]string, 0, 4)
+
+		for scanner.Scan() { // get stdout text for each lines
+			s := scanner.Text()
+			slog.Debug("LinkingTicket", "scan content", s)
+			result_lines = append(result_lines, s)
+		}
+
+		cmd.Wait()
+
+		// TODO: result_lines check
+
+		slog.Info("A ticket link was successfully set", "ticket_id", myKey, "other ticket", key, "relation", rel)
+	}
+
+	return true
+}
+
 func GetMe() string {
 	out, err := exec.Command("jira", "me").Output()
 	if err != nil {

@@ -24,4 +24,5 @@ type CreateParams struct {
 	Reporter     string
 	TemplatePath string
 	Customs      []string
+	Links        []string
 }

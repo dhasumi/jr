@@ -55,6 +55,10 @@ var createCmd = &cobra.Command{
 			}
 		}
 		slog.Info("A ticket was successfully created", "ticket_id", ticket_id, "sprint_id", sprint_id, "ticket_url", ticket_url)
+
+		if len(params.Links) != 0 {
+			jira.LinkingTicket(params, ticket_id)
+		}
 	},
 }
 
@@ -83,4 +87,5 @@ func init() {
 	createCmd.Flags().Int32Var(&params.SprintData.FutureSprint, "future-sprint", 0, "Specifies the number of sprint ahead the ticket will be located from current")
 	createCmd.Flags().StringVar(&params.TemplatePath, "template", "", "Specifies template file path to fill the description field")
 	createCmd.Flags().StringSliceVar(&params.Customs, "custom", []string{}, "Specifies custom values. It can be put multiple custom values with comma. ex: \"A=a,B=b\"")
+	createCmd.Flags().StringSliceVar(&params.Links, "custom", []string{}, "Specifies link to other issues, and linking type. It can be put multiple link representations using comma. ex: \"Blocks>ISSUE-1020,Relates>ISSUE-1021\"")
 }
