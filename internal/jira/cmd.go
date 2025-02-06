@@ -174,7 +174,7 @@ func CreateTicket(param CreateParams) (string, string) {
 
 func LinkingTicket(param CreateParams, myKey string) bool {
 	for _, v := range param.Links {
-		options := []string{"jira", "link", myKey}
+		options := []string{"jira", "issue", "link", myKey}
 
 		divided := strings.Split(v, ">")
 		if len(divided) != 2 {
@@ -217,6 +217,10 @@ func LinkingTicket(param CreateParams, myKey string) bool {
 		cmd.Wait()
 
 		// TODO: result_lines check
+		if len(result_lines) == 0 {
+			slog.Error("LinkingTicket", "scan result", "no stdout strings")
+			os.Exit(1)
+		}
 
 		slog.Info("A ticket link was successfully set", "ticket_id", myKey, "other ticket", key, "relation", rel)
 	}
